@@ -2,21 +2,28 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 from bs4.element import Tag
-from openpyxl import load_workbook
+from openpyxl import *
+import os
+from webdriver_manager.chrome import ChromeDriverManager
 
-driver = webdriver.Chrome('./chromedriver')
+driver = webdriver.Chrome(ChromeDriverManager().install())
 # Path where results store
 
 
-URLFile = "FinanceURL.xlsx"
-wb = load_workbook(URLFile)
-ws = wb['URLs']
+wb = Workbook()
+
+ws = wb.create_sheet("CompSciURL")
+
+# ws = wb['URLs']
+
+URLFile = "CompSciURL.xlsx"
+
 # Number of results to record, edit to change # of results
-searchNumber=5
-university = "MIT"
-degree = "Master"
-topic = "Finance"
-keyword = "Curriculum" 
+searchNumber=7
+university = "Stevens"
+degree = "Undergraduate"
+topic = "Computer"
+keyword = "science" 
 google_url = "https://www.google.com/search?q=" + university + "+" + degree + "+" + topic + "+" + keyword + "&num=" + str(searchNumber)
 driver.get(google_url)
 time.sleep(3)
